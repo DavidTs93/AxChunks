@@ -1,0 +1,7 @@
+name: AxChunks
+main: me.DMan16.AxChunks.AxChunks
+depend: [AxUtils,WorldGuard]
+version: 1.0
+description: Chunk Keeper for Aldreda
+author: DMan16
+api-version: 1.16
