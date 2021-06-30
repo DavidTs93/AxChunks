@@ -21,7 +21,7 @@ class CitizensListener extends Listener {
 					if (isKeepNPC(npc)) npc.spawn(npc.getStoredLocation(),SpawnReason.CHUNK_LOAD);
 				}));
 			}
-		}.runTaskLater(plugin,10);
+		}.runTaskLater(plugin,2 * 20);
 	}
 	
 	@EventHandler(ignoreCancelled = true)
@@ -30,6 +30,9 @@ class CitizensListener extends Listener {
 	}
 	
 	boolean isKeepNPC(NPC npc) {
-		return npc.getOrAddTrait(Spawned.class).shouldSpawn() && AxChunks.isKeepRegion(AxUtils.getWorldGuardManager().getRegions(npc.getStoredLocation()));
+		try {
+			return npc.getOrAddTrait(Spawned.class).shouldSpawn() && AxChunks.isKeepRegion(AxUtils.getWorldGuardManager().getRegions(npc.getStoredLocation()));
+		} catch (Exception e) {}
+		return false;
 	}
 }

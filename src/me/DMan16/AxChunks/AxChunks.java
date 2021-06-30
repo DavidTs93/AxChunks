@@ -24,6 +24,10 @@ import java.util.List;
 public class AxChunks extends JavaPlugin implements Listener {
 	static StateFlag KeepChunkFlag;
 	
+	public static StateFlag getKeepChunkFlag() {
+		return KeepChunkFlag;
+	}
+	
 	public void onLoad() {
 		if (AxUtils.getWorldGuardManager() == null) Bukkit.getPluginManager().disablePlugin(this);
 		else KeepChunkFlag = AxUtils.getWorldGuardManager().newStateFlag("always-loaded",false);
@@ -94,7 +98,7 @@ public class AxChunks extends JavaPlugin implements Listener {
 		List<ProtectedRegion> regions = new ArrayList<ProtectedRegion>(AxUtils.getWorldGuardManager().getRegions(event.getWorld()).values());
 		while (!regions.isEmpty()) {
 			ProtectedRegion region = regions.get(0);
-			List<ProtectedRegion> intersecting = region.getIntersectingRegions(regions);
+			List<ProtectedRegion> intersecting = new ArrayList<ProtectedRegion>(region.getIntersectingRegions(regions));
 			intersecting.add(region);
 			if (isKeepRegion(intersecting)) {
 				List<Chunk> chunks = getChunks(region,event.getWorld());
